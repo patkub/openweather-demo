@@ -47,22 +47,12 @@ def print_weather(current_weather, temp, wind_gust, title):
     print("\n\n\n")
 
 
-# finds the current day in daily data
-# returns index or -1 if error
-def find_current_daily(daily_data):
-    current_index = -1
-    for i, item in enumerate(daily_data):
-        if item["dt"] == current_weather["dt"]:
-            # found current day
-            current_index = i
-    return current_index
-
-
 # load api key from file
 API_KEY = get_api_key()
 
 # format request with api key
-cmd = "https://api.openweathermap.org/data/2.5/onecall?lat=41.898080&lon=-70.259634&units=imperial&appid={}".format(
+# RIT
+cmd = "https://api.openweathermap.org/data/2.5/onecall?lat=43.0850&lon=-77.6719&units=imperial&appid={}".format(
     API_KEY
 )
 
@@ -93,19 +83,12 @@ try:
         "Today's Weather",
     )
 
-    # find current day in daily data
-    daily_data = json_object["daily"]
-    current_index = find_current_daily(daily_data)
-    if current_index == -1:
-        print("Error getting tomorrow's data!")
-        exit(1)
-
     # tomorrow's daily data is next index
-    tomorrow_weather = daily_data[current_index + 1]
+    tomorrow_weather = json_object["hourly"][24]
 
     print_weather(
         tomorrow_weather,
-        tomorrow_weather["temp"]["day"],
+        tomorrow_weather["temp"],
         tomorrow_weather["wind_gust"],
         "Tomorrow's Weather",
     )
