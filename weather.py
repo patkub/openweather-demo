@@ -34,9 +34,9 @@ def get_api_key():
 
 
 # print weather info
-def print_weather(current_weather, temp, wind_gust, title):
+def print_weather(current_weather, wind_gust, title):
     print(f"\t\t\t{title}\n")
-    print("\t\t\tTEMPERATURE             = ", temp, " deg F")
+    print("\t\t\tTEMPERATURE             = ", current_weather["temp"], " deg F")
     print("\t\t\tHUMIDITY                = ", current_weather["humidity"], " percent")
     print("\t\t\tATMOSPHERIC PRESSURE    = ", current_weather["pressure"], " hPascals")
 
@@ -78,17 +78,15 @@ try:
     print("\n\n\n")
     print_weather(
         current_weather,
-        current_weather["temp"],
         json_object["hourly"][0]["wind_gust"],
         "Today's Weather",
     )
 
-    # tomorrow's daily data is next index
+    # tomorrow's daily data is 24 hours from now
     tomorrow_weather = json_object["hourly"][24]
 
     print_weather(
         tomorrow_weather,
-        tomorrow_weather["temp"],
         tomorrow_weather["wind_gust"],
         "Tomorrow's Weather",
     )
